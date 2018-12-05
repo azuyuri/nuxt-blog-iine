@@ -3,6 +3,11 @@ const pkg = require('./package')
 module.exports = {
   mode: 'universal',
   srcDir: 'app',
+  router: {
+    middleware: [
+      'auth-cookie'
+    ]
+  },
 
   /*
   ** Headers of the page
