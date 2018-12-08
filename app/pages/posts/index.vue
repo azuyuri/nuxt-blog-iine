@@ -7,7 +7,6 @@
       <el-table
         :data="showPosts"
         style="width: 100%"
-        @row-click="handleClick"
         class="table"
       >
         <el-table-column
