@@ -6,9 +6,8 @@ export const state = () => ({
 
 //このブロックがなかったのでログインできなかった
 export const getters = {
-  isLoggedIn: (state) => state.isLoggedIn,
-  user: (state) =>
-  state.user ? Object.assign({ likes: []}, state.user) : null
+  isLoggedIn: state => state.isLoggedIn,
+  user: state => (state.user ? Object.assign({ likes: [] }, state.user) : null)
 }
 
 export const mutations = {
@@ -22,7 +21,7 @@ export const actions = {
   //ログイン
   async login({ commit }, { id }) {
     const user = await this.$axios.$get(`/users/${id}.json`)
-    console.log
+    console.log(user)
     if (!user.id) throw new Error('Invalid user')
     commit('setUser', { user })
   },
@@ -35,7 +34,7 @@ export const actions = {
     if (!user.id) throw new Error('Invalid user')
     commit('setUser', { user })
   },
-  //いいね機能
+  //いいね
   async addLikeLogToUser({ commit }, { user, post }) {
     user.likes.push({
       created_at: moment().format(),
@@ -43,6 +42,12 @@ export const actions = {
       post_id: post.id
     })
     const newUser = await this.$axios.$put(`/users/${user.id}.json`, user)
-    commit('setUser', { user: newUser })
+    commit('updateUser', { user: newUser })
+  },
+  //いいね取り消し
+  async removeLikeLogToUser({ commit }, { user, post }) {
+    user.likes = post.likes.filter(like => like.user_id !== user.id) || []
+    const newUser = await this.$axios.$put(`/users/${user.id}.json`, user)
+    commit('updateUser', { user: newUser })
   }
 }
