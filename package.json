@@ -8,7 +8,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "test": "jest"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
@@ -20,6 +21,7 @@
     "universal-cookie": "^3.0.7"
   },
   "devDependencies": {
+    "jest": "^23.6.0",
     "nodemon": "^1.11.0"
   }
 }
